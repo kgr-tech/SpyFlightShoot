@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpyShoot ECS Test</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .ecs-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #00ff00;
+            padding: 10px;
+            border: 2px solid #00ccff;
+            font-family: 'Orbitron', monospace;
+            font-size: 12px;
+            z-index: 1000;
+        }
+        
+        .ecs-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            padding: 10px;
+            border: 2px solid #00ccff;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        .ecs-toggle:hover {
+            background: rgba(0, 204, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- ECS Information Panel -->
+        <div class="ecs-info">
+            <h3>🚀 ECS MODE ACTIVE</h3>
+            <p>Entity-Component-System Architecture</p>
+            <p>• Better Performance</p>
+            <p>• Modular Design</p>
+            <p>• Scalable Systems</p>
+            <p>Press F12 to see ECS debug info</p>
+        </div>
+        
+        <!-- Toggle Button -->
+        <div class="ecs-toggle" onclick="toggleECS()">
+            <span id="ecsToggleText">Switch to Original</span>
+        </div>
+        
+        <!-- HUD Container -->
+        <div id="hudContainer">
+            <!-- Score Display -->
+            <div id="scoreDisplay" class="hud-element">
+                <span id="scoreValue">0</span>
+            </div>
+            
+            <!-- Energy Bar -->
+            <div id="energyContainer" class="hud-element">
+                <div id="energyBar">
+                    <div id="energyFill"></div>
+                    <div id="energyShimmer"></div>
+                </div>
+                <span id="energyText">ENERGY</span>
+            </div>
+            
+            <!-- Scanner Status -->
+            <div id="scannerStatus" class="hud-element">
+                <span id="scannerText">SCANNER: READY</span>
+            </div>
+            
+            <!-- Audio Settings Button -->
+            <button id="audioSettingsButton" class="hud-button">🔊</button>
+        </div>
+        
+        <!-- Game Canvas -->
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        
+        <!-- Audio Settings Panel -->
+        <div id="audioSettingsPanel" class="settings-panel hidden">
+            <h3>Audio Settings</h3>
+            <div class="setting-group">
+                <label for="masterVolume">Master Volume:</label>
+                <input type="range" id="masterVolume" min="0" max="100" value="70">
+                <span id="masterVolumeValue">70%</span>
+            </div>
+            <div class="setting-group">
+                <label for="sfxVolume">Sound Effects:</label>
+                <input type="range" id="sfxVolume" min="0" max="100" value="80">
+                <span id="sfxVolumeValue">80%</span>
+            </div>
+            <div class="setting-group">
+                <label for="musicVolume">Music:</label>
+                <input type="range" id="musicVolume" min="0" max="100" value="60">
+                <span id="musicVolumeValue">60%</span>
+            </div>
+            <button id="closeAudioSettings" class="settings-close">Close</button>
+        </div>
+    </div>
+
+    <script type="module">
+        // Force ECS mode for this test
+        window.FORCE_ECS_MODE = true;
+        
+        // Debug ECS information
+        function logECSInfo() {
+            if (window.spyShootGame && window.spyShootGame.enhancedGame) {
+                const debugInfo = window.spyShootGame.enhancedGame.getDebugInfo();
+                console.log('🎮 ECS Debug Info:', debugInfo);
+            }
+        }
+        
+        // Log ECS info every 5 seconds
+        setInterval(logECSInfo, 5000);
+        
+        // Toggle between ECS and original (for testing)
+        window.toggleECS = function() {
+            if (window.spyShootGame) {
+                const currentMode = window.spyShootGame.useECS;
+                console.log(`Switching from ${currentMode ? 'ECS' : 'Original'} to ${!currentMode ? 'ECS' : 'Original'} mode`);
+                
+                // This would require a page reload in a real implementation
+                alert('ECS toggle would require page reload. Check console for ECS debug info!');
+                logECSInfo();
+            }
+        };
+        
+        // Enhanced keyboard shortcuts for ECS testing
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'F1') {
+                e.preventDefault();
+                logECSInfo();
+            }
+            if (e.key === 'F2') {
+                e.preventDefault();
+                if (window.spyShootGame && window.spyShootGame.enhancedGame) {
+                    const ecsManager = window.spyShootGame.enhancedGame.getECSManager();
+                    console.log('🎯 ECS Entities:', ecsManager.getEntitiesWith());
+                }
+            }
+        });
+        
+        console.log('🚀 ECS Test Mode Active');
+        console.log('Press F1 for ECS debug info');
+        console.log('Press F2 for entity information');
+    </script>
+    
+    <script type="module" src="game.js"></script>
+</body>
+</html>

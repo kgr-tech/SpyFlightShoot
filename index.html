@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpyShoot - Space Reconnaissance Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="hud">
+            <div class="score-display">
+                <div class="score-label">SCORE</div>
+                <div class="score-value" id="score">000000</div>
+            </div>
+            <div class="energy-container">
+                <div class="energy-label">ENERGY</div>
+                <div class="energy-bar">
+                    <div id="energy-fill" class="energy-fill"></div>
+                </div>
+            </div>
+            <div class="scanner-container">
+                <div class="scanner-label">SCANNER</div>
+                <div class="scanner-value" id="scanner-status">READY</div>
+            </div>
+            <button id="audioSettingsButton" class="audio-settings-button" title="Audio Settings (M)">🎵</button>
+        </div>
+        
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        
+        <!-- Hide the control hints -->
+        <div class="controls" style="display: none;">
+            <div class="control-hint">MOVE: ARROWS/WASD | SHOOT: SPACE | SCAN: Q | PAUSE: P | RESTART: R | AUDIO: M | STATS: D</div>
+        </div>
+        
+        <div id="gameOverScreen" class="game-over hidden">
+            <h2>GAME OVER</h2>
+            <p>Final Score: <span id="finalScore">0</span></p>
+            <p>Press R to restart</p>
+        </div>
+    </div>
+    
+    <script type="module" src="game.js"></script>
+</body>
+</html>

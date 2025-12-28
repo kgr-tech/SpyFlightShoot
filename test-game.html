@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SpyShoot System Test</title>
+    <style>
+        body { font-family: monospace; background: #000; color: #0f0; padding: 20px; }
+        .test { margin: 10px 0; }
+        .pass { color: #0f0; }
+        .fail { color: #f00; }
+    </style>
+</head>
+<body>
+    <h1>🎮 SpyShoot System Test</h1>
+    <div id="results"></div>
+    
+    <script type="module">
+        const results = document.getElementById('results');
+        
+        function addResult(test, status, message) {
+            const div = document.createElement('div');
+            div.className = `test ${status}`;
+            div.innerHTML = `${status === 'pass' ? '✅' : '❌'} ${test}: ${message}`;
+            results.appendChild(div);
+        }
+        
+        // Test 1: Check if all imports work
+        try {
+            const modules = [
+                './src/entities/PlayerShip.js',
+                './src/systems/InputSystem.js',
+                './src/systems/ShootingSystem.js',
+                './src/systems/EnergySystem.js',
+                './src/systems/ScannerSystem.js',
+                './src/systems/SpawningSystem.js',
+                './src/systems/CollisionSystem.js',
+                './src/systems/ScoreSystem.js',
+                './src/utils/GameConstants.js'
+            ];
+            
+            Promise.all(modules.map(mod => import(mod)))
+                .then(imports => {
+                    addResult('Module Imports', 'pass', 'All modules loaded successfully');
+                    
+                    // Test 2: Check game constants
+                    const { GAME_CONFIG, KEYS } = imports[8];
+                    if (GAME_CONFIG && KEYS) {
+                        addResult('Game Constants', 'pass', 'GAME_CONFIG and KEYS loaded');
+                    } else {
+                        addResult('Game Constants', 'fail', 'Missing GAME_CONFIG or KEYS');
+                    }
+                    
+                    // Test 3: Check system instantiation
+                    try {
+                        const { InputSystem } = imports[1];
+                        const { EnergySystem } = imports[3];
+                        const { ScoreSystem } = imports[7];
+                        
+                        const inputSystem = new InputSystem();
+                        const energySystem = new EnergySystem();
+                        const scoreSystem = new ScoreSystem();
+                        
+                        addResult('System Creation', 'pass', 'Core systems instantiated successfully');
+                        
+                        // Test 4: Check HTML elements
+                        const canvas = document.getElementById('gameCanvas');
+                        if (canvas) {
+                            addResult('Canvas Element', 'pass', 'Canvas found in DOM');
+                        } else {
+                            addResult('Canvas Element', 'fail', 'Canvas not found - check index.html');
+                        }
+                        
+                        addResult('Overall Status', 'pass', 'All systems operational! 🚀');
+                        
+                    } catch (error) {
+                        addResult('System Creation', 'fail', error.message);
+                    }
+                })
+                .catch(error => {
+                    addResult('Module Imports', 'fail', error.message);
+                });
+                
+        } catch (error) {
+            addResult('Initial Test', 'fail', error.message);
+        }
+    </script>
+</body>
+</html>

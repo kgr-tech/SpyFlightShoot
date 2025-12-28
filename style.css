@@ -1,0 +1,558 @@
+/* SpyShoot - Retro Space Shooter Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000;
+    color: #00ff00;
+    font-family: 'Orbitron', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.game-container {
+    position: relative;
+    border: 2px solid #00ff00;
+    border-radius: 8px;
+    background: #000;
+    box-shadow: 0 0 20px #00ff00;
+}
+
+/* HUD Styles - Enhanced Scoreboard */
+.hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: linear-gradient(180deg, rgba(0, 255, 0, 0.15) 0%, rgba(0, 255, 0, 0.05) 100%);
+    border-bottom: 2px solid #00ff00;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 2px 10px rgba(0, 255, 0, 0.3);
+}
+
+/* Score Display */
+.score-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.score-label {
+    color: #00ff00;
+    font-size: 12px;
+    font-weight: 400;
+    text-shadow: 0 0 5px #00ff00;
+    letter-spacing: 2px;
+}
+
+.score-value {
+    color: #00ff00;
+    font-size: 24px;
+    font-weight: 900;
+    text-shadow: 0 0 10px #00ff00;
+    letter-spacing: 3px;
+    font-family: 'Orbitron', monospace;
+    background: rgba(0, 255, 0, 0.1);
+    padding: 5px 15px;
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+    min-width: 120px;
+    text-align: center;
+}
+
+/* Energy Container */
+.energy-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.energy-label {
+    color: #00ff00;
+    font-size: 12px;
+    font-weight: 400;
+    text-shadow: 0 0 5px #00ff00;
+    letter-spacing: 2px;
+}
+
+.energy-bar {
+    width: 200px;
+    height: 24px;
+    border: 2px solid #00ff00;
+    background: rgba(0, 0, 0, 0.8);
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.energy-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff00 0%, #88ff00 50%, #ffff00 100%);
+    width: 100%;
+    transition: width 0.3s ease, background 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.6);
+    position: relative;
+}
+
+.energy-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+    animation: energyShimmer 2s infinite;
+}
+
+@keyframes energyShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Scanner Container */
+.scanner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.scanner-label {
+    color: #00ff00;
+    font-size: 12px;
+    font-weight: 400;
+    text-shadow: 0 0 5px #00ff00;
+    letter-spacing: 2px;
+}
+
+.scanner-value {
+    color: #00ff00;
+    font-size: 16px;
+    font-weight: 700;
+    text-shadow: 0 0 8px #00ff00;
+    letter-spacing: 1px;
+    background: rgba(0, 255, 0, 0.1);
+    padding: 4px 12px;
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+    min-width: 80px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.scanner-value.active {
+    color: #ff0000;
+    text-shadow: 0 0 8px #ff0000;
+    border-color: #ff0000;
+    background: rgba(255, 0, 0, 0.1);
+    animation: scannerPulse 0.8s infinite alternate;
+}
+
+/* Audio Settings Button */
+.audio-settings-button {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: 'Orbitron', monospace;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+.audio-settings-button:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    transform: scale(1.05);
+}
+
+/* Low Energy Animation */
+.energy-fill.low {
+    background: linear-gradient(90deg, #ff0000 0%, #ff4400 50%, #ffaa00 100%) !important;
+    animation: lowEnergyPulse 1s infinite alternate;
+}
+
+@keyframes lowEnergyPulse {
+    from { 
+        opacity: 0.6;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    }
+    to { 
+        opacity: 1;
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.9);
+    }
+}
+
+/* Canvas Styles */
+#gameCanvas {
+    display: block;
+    background: #000;
+    border: none;
+}
+
+/* Controls */
+.controls {
+    padding: 10px 20px;
+    background: rgba(0, 255, 0, 0.1);
+    border-top: 1px solid #00ff00;
+    text-align: center;
+}
+
+.control-hint {
+    font-size: 12px;
+    color: #00aa00;
+    text-shadow: 0 0 3px #00aa00;
+}
+
+/* Game Over Screen */
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000;
+    z-index: 100;
+}
+
+.game-over h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: 900;
+}
+
+.game-over p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Movement feedback */
+.game-container.moving {
+    box-shadow: 0 0 25px #00ff00;
+}
+
+/* Energy level indicators */
+.energy-fill.low {
+    animation: energyWarning 1s infinite alternate;
+}
+
+@keyframes energyWarning {
+    from { box-shadow: 0 0 10px #ff0000; }
+    to { box-shadow: 0 0 20px #ff0000; }
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .game-container {
+        border: none;
+        border-radius: 0;
+    }
+    
+    #gameCanvas {
+        width: 100vw;
+        height: 70vh;
+    }
+    
+    .hud {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+    
+    .energy-bar {
+        width: 100px;
+    }
+    
+    .control-hint {
+        font-size: 10px;
+    }
+}
+
+/* Audio Settings Panel */
+.audio-settings-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    border: 2px solid #00ff00;
+    border-radius: 8px;
+    padding: 20px;
+    min-width: 350px;
+    max-width: 90vw;
+    z-index: 200;
+    font-family: 'Orbitron', monospace;
+    color: #00ff00;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+}
+
+.audio-settings-panel.hidden {
+    display: none;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #00ff00;
+    padding-bottom: 10px;
+}
+
+.settings-header h3 {
+    margin: 0;
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+.close-button {
+    background: none;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.close-button:hover {
+    background: #00ff00;
+    color: #000;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.volume-section {
+    margin-bottom: 20px;
+}
+
+.volume-control {
+    margin-bottom: 15px;
+}
+
+.volume-control label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #00aa00;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.volume-slider {
+    flex: 1;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #00ff00;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 5px #00ff00;
+    transition: all 0.2s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 10px #00ff00;
+    transform: scale(1.1);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #00ff00;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 5px #00ff00;
+}
+
+.volume-value {
+    min-width: 40px;
+    text-align: right;
+    font-size: 12px;
+    color: #00ff00;
+}
+
+.mute-section {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.mute-button {
+    background: rgba(0, 255, 0, 0.1);
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    margin: 0 auto;
+}
+
+.mute-button:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.mute-button.muted {
+    background: rgba(255, 0, 0, 0.1);
+    border-color: #ff0000;
+    color: #ff0000;
+}
+
+.mute-button.muted:hover {
+    background: rgba(255, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.preset-section {
+    border-top: 1px solid #00ff00;
+    padding-top: 15px;
+}
+
+.preset-section label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #00aa00;
+}
+
+.preset-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.preset-button {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    transition: all 0.2s ease;
+    flex: 1;
+    min-width: 60px;
+}
+
+.preset-button:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+.preset-button:active {
+    background: #00ff00;
+    color: #000;
+}
+
+/* Audio Settings Button in HUD */
+.audio-settings-button {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.audio-settings-button:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+@keyframes scannerPulse {
+    from { 
+        opacity: 0.7; 
+        transform: scale(1);
+    }
+    to { 
+        opacity: 1; 
+        transform: scale(1.05);
+    }
+}
+
+/* Game Container Enhancement */
+.game-container {
+    position: relative;
+    border: 3px solid #00ff00;
+    border-radius: 12px;
+    background: #000;
+    box-shadow: 
+        0 0 30px rgba(0, 255, 0, 0.4),
+        inset 0 0 20px rgba(0, 255, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Enhanced Glow Effects */
+.score-value, .scanner-value {
+    position: relative;
+}
+
+.score-value::before, .scanner-value::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.3), transparent);
+    border-radius: 6px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.score-value:hover::before, .scanner-value:hover::before {
+    opacity: 1;
+}

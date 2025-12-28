@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpyShoot Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+        }
+        canvas {
+            border: 1px solid #0f0;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>SpyShoot Game Test</h1>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    
+    <script type="module">
+        console.log('🚀 Testing SpyShoot game initialization...');
+        
+        try {
+            // Test basic canvas setup
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            if (!canvas || !ctx) {
+                throw new Error('Canvas setup failed');
+            }
+            
+            console.log('✅ Canvas setup successful');
+            
+            // Test basic rendering
+            ctx.fillStyle = '#000011';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw test starfield
+            ctx.fillStyle = '#ffffff';
+            for (let i = 0; i < 100; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const size = Math.random() * 3 + 1;
+                ctx.fillRect(x, y, size, size);
+            }
+            
+            // Draw test text
+            ctx.fillStyle = '#00ff00';
+            ctx.font = 'bold 48px monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText('SPYSHOOT', canvas.width / 2, canvas.height / 2 - 50);
+            
+            ctx.font = '24px monospace';
+            ctx.fillText('Basic Test - Working!', canvas.width / 2, canvas.height / 2 + 50);
+            
+            console.log('✅ Basic rendering test successful');
+            
+            // Test module imports
+            import('./src/utils/GameConstants.js').then(module => {
+                console.log('✅ GameConstants import successful:', module.GAME_CONFIG);
+            }).catch(error => {
+                console.error('❌ GameConstants import failed:', error);
+            });
+            
+        } catch (error) {
+            console.error('❌ Test failed:', error);
+            document.body.innerHTML += `<p style="color: red;">Error: ${error.message}</p>`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "spyshoot",
+  "version": "1.0.0",
+  "description": "SpyShoot - Space Reconnaissance Game",
+  "main": "game.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest --run"
+  },
+  "keywords": ["game", "space", "shooter", "html5", "canvas"],
+  "author": "SpyShoot Developer",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "vitest": "^1.0.0",
+    "fast-check": "^3.15.0"
+  }
+}
